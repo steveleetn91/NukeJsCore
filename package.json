@@ -1,10 +1,11 @@
 {
   "name": "nukejscore",
-  "version": "1.0.1",
+  "version": "1.0.15",
   "description": "Core support for NukeJS",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npx tsc"
   },
   "repository": {
     "type": "git",
