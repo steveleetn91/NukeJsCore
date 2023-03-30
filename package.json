@@ -1,0 +1,28 @@
+{
+  "name": "nukejscore",
+  "version": "1.0.1",
+  "description": "Core support for NukeJS",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steveleetn91/NukeJsCore.git"
+  },
+  "keywords": [
+    "stevelee",
+    "nukejs",
+    "Javascript",
+    "framework"
+  ],
+  "author": "stevelee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/steveleetn91/NukeJsCore/issues"
+  },
+  "homepage": "https://github.com/steveleetn91/NukeJsCore#readme",
+  "dependencies": {
+    "typescript": "^5.0.2"
+  }
+}
