@@ -35,13 +35,13 @@ class NukeJSCoreStructDefine {
     callback: any = {}
 }
 class NukeJSCoreUseState {
-    constructor(private key: string = "", private value: string = "") {
+    constructor(private key: string = "", private value: string = "",private recovery : boolean = true) {
         let _window: any = window;
-        if (_window.NukeJSCore && _window.NukeJSCore.status && _window.NukeJSCore.status[this.key]) {
+        if (_window.NukeJSCore && _window.NukeJSCore.status && _window.NukeJSCore.status[this.key] && this.recovery === true) {
             this.value = _window.NukeJSCore.status[this.key];
         }
     }
-    set(value: any = "") {
+    set(value: any = "",applyRender : boolean = true) {
         this.value = value;
         try {
             let _window: any = window;
@@ -49,7 +49,9 @@ class NukeJSCoreUseState {
                 _window.NukeJSCore = new NukeJSCoreStructDefine;
             }
             _window.NukeJSCore.status[this.key] = this.value;
-            _window.nukepage.render();
+            if(applyRender === true ) {
+                _window.nukepage.render();
+            }
             window = _window;
         } catch (e) {
 
