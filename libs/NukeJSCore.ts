@@ -1,3 +1,5 @@
+import ClientCompiler from "./ClientCompiler";
+
 interface NukeJSCoreInterface {
     hooks: {
         useState: Function
@@ -39,6 +41,8 @@ class NukeJSCoreUseState {
         let _window: any = window;
         if (_window.NukeJSCore && _window.NukeJSCore.status && _window.NukeJSCore.status[this.key] && this.recovery === true) {
             this.value = _window.NukeJSCore.status[this.key];
+        } else {
+            this.set(this.value,false);
         }
     }
     set(value: any = "",applyRender : boolean = true) {
@@ -60,6 +64,9 @@ class NukeJSCoreUseState {
     get() {
         return this.value;
     }
+    getKey(){
+        return this.key;
+    }
 }
 class NukeJSDoom extends Document {
     constructor() {
@@ -67,15 +74,18 @@ class NukeJSDoom extends Document {
 
     }
     build(rootId: string = "", html: string = "") {
-        this.add(rootId, html);
+        const clientCompiler = new ClientCompiler(html);
+        let _html = clientCompiler.run();
+        this.add(rootId, _html);
     }
-    private add(rootId: string = "", html: string = "") {
+    private add(rootId: string = "", html: HTMLElement) {
         if (document.getElementById(rootId)) {
             let rootOld = window.document.getElementById(rootId);
             if(!rootOld) {
                 return;
             }
-            return rootOld.innerHTML = html;
+            rootOld.innerHTML = "";
+            return rootOld.append(html)
         }
     }
 }
