@@ -59,13 +59,27 @@ function isLoop(html: Element) {
         Array.from(item.attributes).forEach((attr) => {
           if (attr.value !== "") {
             Object.keys(_data).forEach((_key, _in) => {
-              item.setAttribute(
-                attr.name,
-                attr.value.replaceAll(
-                  "Nuk[" + _key + "]",
-                  _data[_key].toString()
-                )
-              );
+              
+              if (attr.name === "if") {
+                let keyIf: string = attr.value;
+                
+                keyIf = keyIf.replaceAll('Nuk['+_key+']',`_data['${_key}']`);
+                if(keyIf.indexOf('Nuk') === -1){
+                  if(eval(keyIf)) {
+                    // notthing
+                  } else {
+                    item.remove();
+                  }  
+                }
+              } else {
+                item.setAttribute(
+                  attr.name,
+                  attr.value.replaceAll(
+                    "Nuk[" + _key + "]",
+                    _data[_key].toString()
+                  )
+                );
+              }
             });
           }
         });
