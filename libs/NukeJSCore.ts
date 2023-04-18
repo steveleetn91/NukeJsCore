@@ -1,4 +1,5 @@
 import ClientCompiler from "./ClientCompiler";
+import NukeLink from "./NukeLink";
 
 interface NukeJSCoreInterface {
     hooks: {
@@ -73,19 +74,24 @@ class NukeJSDoom extends Document {
         super();
 
     }
-    build(rootId: string = "", html: string = "") {
+    build(rootId: string = "", html: string = "") : void {
         const clientCompiler = new ClientCompiler(html);
         let _html = clientCompiler.run();
         this.add(rootId, _html);
     }
-    private add(rootId: string = "", html: HTMLElement) {
+    private add(rootId: string = "", html: HTMLElement) : void {
         if (document.getElementById(rootId)) {
             let rootOld = window.document.getElementById(rootId);
             if(!rootOld) {
-                return;
+                rootOld = document.createElement("div");
+                rootOld.setAttribute("id",rootId);
+                window.document.body.append(rootOld);
+                
             }
             rootOld.innerHTML = "";
-            return rootOld.append(html)
+            rootOld.append(html);
+            const link = new NukeLink(rootId);
+            return link.build();
         }
     }
 }
