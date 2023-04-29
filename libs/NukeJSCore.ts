@@ -38,10 +38,14 @@ class NukeJSCoreStructDefine {
     callback: any = {}
 }
 class NukeJSCoreUseState {
-    constructor(private key: string = "", private value: string = "",private recovery : boolean = true) {
+    constructor(private key: string = "", private value: any = "",private recovery : boolean = true) {
         let _window: any = window;
         if (_window.NukeJSCore && _window.NukeJSCore.status && _window.NukeJSCore.status[this.key] && this.recovery === true) {
             this.value = _window.NukeJSCore.status[this.key];
+        } else if (_window.NukeJSCore && _window.NukeJSCore.status && this.recovery === true) {
+            if(_window.NukeJSCore.status[this.key] === false ) {
+                this.value = _window.NukeJSCore.status[this.key];
+            }
         } else {
             this.set(this.value,false);
         }
